@@ -70,6 +70,23 @@ CREATE TABLE `searches` (
   PRIMARY KEY (`id`)
 );
 
+--used for suggestion algorithum
+CREATE TABLE `user_searches` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER NOT NULL, 
+  `searchString` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`id`)
+); 
+
+--used for suggestion algorithum
+CREATE TABLE `user_categories` (
+  `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER NOT NULL, 
+  `category` VARCHAR(50) NOT NULL, 
+  `weight` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
 INSERT INTO businesses (name, id) VALUE ("Tu Lan", "1a");
 INSERT INTO businesses (name, id) VALUE ("Chipotle", "1b");
 INSERT INTO businesses (name, id) VALUE ("McDonalds", "1c");
@@ -146,3 +163,7 @@ INSERT INTO friends (user_id1, user_id2) VALUES (3, 5);
 INSERT INTO friends (user_id1, user_id2) VALUES (3, 6);
 INSERT INTO friends (user_id1, user_id2) VALUES (4, 6);
 INSERT INTO friends (user_id1, user_id2) VALUES (5, 6);
+
+
+
+
