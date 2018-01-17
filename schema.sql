@@ -12,6 +12,7 @@ CREATE TABLE `users` (
   `password` MEDIUMTEXT NOT NULL,
   `username` MEDIUMTEXT NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `location` VARCHAR(50),
   PRIMARY KEY (`id`)
 );
 
