@@ -7,8 +7,8 @@ class BusinessList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      booleanFilters: {
-        open: false, 
+      filters: {
+        open: false,
         favorited: false
       }
     }
@@ -18,62 +18,43 @@ class BusinessList extends React.Component {
     document.body.style.backgroundSize = "100%";
     document.body.style.backgroundRepeat = "repeat-y";
   }
-
-  displayBusinessListings(filters) {
-
-  }
-
-  getFavoritedBusinesses() {
-    const { favorites } = this.props;
-    return this.props.businesses.data.map(business => 
-      favorites[business.id] ?
-      <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
-      <BusinessEntry business={business}
-                     key={business.id}
-                     favorite={favorites[business.id] ? true : false} />
-      </Link> 
-      : null
-    )
-  }
-
-  getOpenBusinesses() {
-    const { favorites } = this.props;
-    return this.props.businesses.data.map(business => 
-      business.opening_hours.open_now ?
-      <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
-      <BusinessEntry business={business}
-                     key={business.id}
-                     favorite={favorites[business.id] ? true : false} />
-      </Link> 
-      : null
-    )
-  }
-
   getBusinessEntries() {
-    const { favorites } = this.props;
-    return this.props.businesses.data.map(business => 
-      <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>
-      <BusinessEntry business={business}
-                     key={business.id}
-                     favorite={favorites[business.id] ? true : false} />
-      </Link> 
-    )
+
+    if (this.state.filters.favorited) {
+      const { favorites } = this.props;
+      return this.props.businesses.data.map(business => 
+        favorites[business.id] ?
+        <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
+        <BusinessEntry business={business}
+                       key={business.id}
+                       favorite={true} />
+        </Link> 
+        : null
+      )
+    } else {
+      const { favorites } = this.props;
+      return this.props.businesses.data.map(business => 
+        <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
+        <BusinessEntry business={business}
+                       key={business.id}
+                       favorite={favorites[business.id] ? true : false} />
+        </Link> 
+      )
+    }
   }
 
-  render() {
+    render() {
     return (
       <div>
       <div className="filterOptionsBar">
 
         <button id="filterPrice" className="filterButton"> Price </button>
-        <button id="filterOpen" className="filterButton" onClick={ () => {
-          console.log(this)
-          this.getOpenBusinesses();
-        }
-        }> Is Open </button>
+        <button id="filterOpen" className="filterButton"> Is Open </button>
         <button id="filterNearby" className="filterButton"> Nearby </button>
         <button id="filterFavorited" className="filterButton" onClick={ () => {
-          this.getFavoritedBusinesses();
+          this.state.filters.favorited = !this.state.filters.favorited
+          var state = this.state;
+          this.setState(state)
         }
         }> Favorited </button>
       </div>
