@@ -1,4 +1,6 @@
 const mysql = require('mysql');
+// requiring all the database querying functions from v2 team
+const v2functions = require('./v2-index.js');
 
 let connection;
 
@@ -469,6 +471,7 @@ const getFavorites = function(userId, cb) {
 //connection.queries
 
 module.exports = {
+  v2functions,
   connection,
   getUser,
   postUser,
