@@ -1,43 +1,21 @@
 import React from 'react';
-import Modal from 'react-responsive-modal';
 
-export default class BusinessInfo extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false
-    };
-
-    this.onOpenModal = this.onOpenModal.bind(this);
-    this.onCloseModal = this.onCloseModal.bind(this);
+const BusinessInfo = (props) => {
+  let imgArr = [];
+  for (let i = 0; i < props.business.rating; i++) {
+    imgArr.push(
+      (<img className="ratingLogo" key={i} src='https://image.ibb.co/bzkXSR/imageedit_12_7791151374.png' width='20px'/>)
+    )
   }
-
-  onOpenModal () {
-    this.setState({ open: true });
-  };
-
-  onCloseModal () {
-    this.setState({ open: false });
-  };
-
-  render () {
-    <div>
-      <div className="businessInfo">
-        <div className="businessTitle">{this.props.business.name}</div>
-        <div className="rating">
-          
-        </div>
-        <div>{this.props.business.formatted_address}</div>
-        <div>{this.props.business.formatted_phone_number}</div>
-        <a href={this.props.business.website} >{this.props.business.website}</a>
-      </div>
-      <div>
-        <button onClick={this.onOpenModal}>Open modal</button>
-        <Modal open={this.state.open} onClose={this.onCloseModal} little>
-            <h2>Simple centered modal</h2>
-          </Modal>
-      </div> 
+  return (
+    <div className="businessInfo">
+      <div className="businessTitle">{props.business.name}</div>
+      <div className="rating">{imgArr}</div>
+      <div>{props.business.formatted_address}</div>
+      <div>{props.business.formatted_phone_number}</div>
+      <a href={props.business.website} >{props.business.website}</a>
     </div>
-  }
+  )
 }
+
+export default BusinessInfo;
