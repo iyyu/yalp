@@ -71,7 +71,6 @@ CREATE TABLE `searches` (
   PRIMARY KEY (`id`)
 );
 
---used for suggestion algorithum
 CREATE TABLE `user_searches` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `user_id` INTEGER NOT NULL, 
@@ -79,7 +78,6 @@ CREATE TABLE `user_searches` (
   PRIMARY KEY (`id`)
 ); 
 
---used for suggestion algorithum
 CREATE TABLE `user_categories` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `user_id` INTEGER NOT NULL, 
