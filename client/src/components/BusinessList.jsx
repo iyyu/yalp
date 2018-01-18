@@ -10,7 +10,10 @@ class BusinessList extends React.Component {
       entries: this.props.businesses.data,
       activeFilters: {
         price: false,
-        rating: false, 
+        rating: false,
+        is_open: false,
+        nearby: false,
+        favorited: false
       }
     }
   }
@@ -25,14 +28,14 @@ class BusinessList extends React.Component {
     let sortedPricedEntries = pricedEntries.sort((a, b) => {
       return b.price_level - a.price_level
     })
-    this.setState({entries: sortedPricedEntries});
+    this.updateState(sortedPricedEntries);
   }
 
   sortByRating() {
     let ratedEntries = this.props.businesses.data.sort((a, b) => {
       return b.rating - a.rating 
     })
-    this.setState({entries: ratedEntries})
+    this.updateState(ratedEntries);
   }
 
     sortByFavorited() {
@@ -42,7 +45,7 @@ class BusinessList extends React.Component {
        return entry
       }
     })
-    this.setState({entries: favoritedEntries})
+    this.updateState(favoritedEntries);
   }
 
   sortByOpen() {
@@ -51,8 +54,12 @@ class BusinessList extends React.Component {
         return entry
       }
     });
-    this.setState({entries: openEntries});
+    this.updateState(openEntries);
 
+  }
+
+  updateState(filteredEntries) {
+    this.setState({entries: filteredEntries});
   }
 
   displayBusinessEntries() {
