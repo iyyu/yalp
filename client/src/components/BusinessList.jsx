@@ -17,14 +17,15 @@ class BusinessList extends React.Component {
   }
 
   sortByPrice() {
-    let pricedEntries = this.props.businesses.data.sort(function(a, b) {
-        return b.price_level - a.price_level
+    let pricedEntries = this.props.businesses.data.filter(entry => entry.price_level);
+    let sortedPricedEntries = pricedEntries.sort((a, b) => {
+      return b.price_level - a.price_level
     })
-    this.setState({entries: pricedEntries});
+    this.setState({entries: sortedPricedEntries});
   }
 
   sortByRating() {
-    let ratedEntries = this.props.businesses.data.sort(function(a, b) {
+    let ratedEntries = this.props.businesses.data.sort((a, b) => {
       return b.rating - a.rating 
     })
     this.setState({entries: ratedEntries})
