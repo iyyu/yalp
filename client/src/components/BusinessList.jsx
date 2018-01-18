@@ -75,11 +75,9 @@ class BusinessList extends React.Component {
     for (var filter in filters) {
       if (this.state.activeFilters[filter]){
         var operation = filters[filter]
-        console.log('applying ' + filter)
         entries = operation(entries)
       }
     }
-    console.log('entries ', entries[0], entries[entries.length - 1])
     return entries;
   }
 
@@ -110,16 +108,16 @@ class BusinessList extends React.Component {
     return (
       <div>
       <div className="filterOptionsBar">
-        <button id="filterPrice" className="filterButton"  onClick={ () => {
+        <button id="filterPrice" className="filterButton" style={this.state.activeFilters.price ? {"backgroundColor": "green"} :  {"backgroundColor": "red"}}  onClick={ () => {
           this.clickHandler('price');
         }}> Price </button>
-        <button id="filterOpen" className="filterButton" onClick={ () => {
+        <button id="filterOpen" className="filterButton" style={this.state.activeFilters.is_open ? {"backgroundColor": "green"} :  {"backgroundColor": "red"}} onClick={ () => {
           this.clickHandler('is_open');
         }}> Is Open </button>
-        <button id="filterRating" className="filterButton" onClick={ () =>{
+        <button id="filterRating" className="filterButton" style={this.state.activeFilters.rating ? {"backgroundColor": "green"} :  {"backgroundColor": "red"}} onClick={ () =>{
           this.clickHandler('rating');
         }}> Rating </button>
-        <button id="filterFavorited" className="filterButton" onClick={ () => {
+        <button id="filterFavorited" className="filterButton" style={this.state.activeFilters.favorited ? {"backgroundColor": "green"} :  {"backgroundColor": "red"}} onClick={ () => {
            this.clickHandler('favorited');
          }}> Favorited </button>
       </div>
