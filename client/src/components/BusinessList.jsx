@@ -7,7 +7,11 @@ class BusinessList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: this.props.businesses.data
+      entries: this.props.businesses.data,
+      activeFilters: {
+        price: false,
+        rating: false, 
+      }
     }
   }
   componentWillMount() {
@@ -42,9 +46,11 @@ class BusinessList extends React.Component {
   }
 
   sortByOpen() {
-    let openEntries = this.props.businesses.data.filter(entry => entry.opening_hours.open_now);
-    console.log(openEntries)
-    
+    let openEntries = this.props.businesses.data.filter(entry => {
+      if (entry.hasOwnProperty('opening_hours') && entry.opening_hours.open_now){
+        return entry
+      }
+    });
     this.setState({entries: openEntries});
 
   }
