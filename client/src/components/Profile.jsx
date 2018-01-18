@@ -67,7 +67,7 @@ class Profile extends React.Component {
   
   fetchFavorites() {
     const { profileId } = this.props;
-    axios.get(`/user/favorites/${profileId}`)
+    axios.get(`/user/favorites/${profileId}`) // the way we store this data needs to be adjusted if we want it to work with results from GAPI.
       .then(resp => {
         this.setState({ favorites: resp.data });
       })
@@ -79,7 +79,6 @@ class Profile extends React.Component {
   renderUserInfo() {
     const { user } = this.state;
     return user !== null ? [
-      <div key={0}>{`Name:  ${user.name}`}</div>,
       <div key={1}>{`Email: ${user.email}`}</div>,
       <div key={2}>{`Username: ${user.username}`}</div>,
       <div key={3}>{`Created At: ${this.createDate(user.createdAt)}`}</div>,
@@ -136,7 +135,9 @@ class Profile extends React.Component {
     if (favorites.length) {
       return favorites.map(favorite => {
         return (
-          <div key={favorite.id}>{favorite.name}</div>
+          <ul>
+            <li><div key={favorite.id}>{favorite.name}</div></li>   
+          </ul>
         );
       });
     }
@@ -153,10 +154,11 @@ class Profile extends React.Component {
   
   render() {
     return (
-      <div>
-        <div>Profile Page</div>
+      <div className="profileContainer">
+       
         <div>
-          <div>Profile Info</div>
+          <h2> {this.state.user  ? this.state.user.name : null}</h2>
+          <hr/>
           {this.renderUserInfo()}
         </div>
         <div>
