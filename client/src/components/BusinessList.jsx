@@ -30,14 +30,14 @@ class BusinessList extends React.Component {
     this.setState({entries: ratedEntries})
   }
 
-  sortByFavorited() {
-    let favorited = [];
-    this.props.businesses.forEach(entry => {
-      if (favorites[business.id]){
-        favorited.push(entry)
+    sortByFavorited() {
+    const {favorites} = this.props;
+    var favoritedEntries = this.props.businesses.data.filter(entry => {
+      if (favorites[entry.id]){
+       return entry
       }
     })
-    console.log(favorited)
+    this.setState({entries: favoritedEntries})
   }
 
   sortByOpen() {
