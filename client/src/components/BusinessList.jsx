@@ -7,6 +7,7 @@ class BusinessList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      entries: this.props.businesses.data,
       filters: {
         open: false,
         favorited: false
@@ -18,29 +19,52 @@ class BusinessList extends React.Component {
     document.body.style.backgroundSize = "100%";
     document.body.style.backgroundRepeat = "repeat-y";
   }
-  getBusinessEntries() {
 
-    if (this.state.filters.favorited) {
-      const { favorites } = this.props;
-      return this.props.businesses.data.map(business => 
-        favorites[business.id] ?
-        <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
-        <BusinessEntry business={business}
-                       key={business.id}
-                       favorite={true} />
-        </Link> 
-        : null
-      )
-    } else {
-      const { favorites } = this.props;
-      return this.props.businesses.data.map(business => 
-        <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
-        <BusinessEntry business={business}
-                       key={business.id}
-                       favorite={favorites[business.id] ? true : false} />
-        </Link> 
-      )
-    }
+  sortByPrice() {
+    let pricedEntries = this.props.businesses.data.sort(function(a, b) {
+        return b.price_level - a.price_level
+    })
+    this.state.entries = pricedEntries;
+    let state = this.state;
+    this.setState(state);
+  }
+
+  sortByRating() {
+    let ratedEntries = this.props.businesses.data.sort(function(a, b) {
+      return b.rating - a.rating 
+    })
+    this.state.entries = ratedEntries;
+    let state = this.state;
+    this.setState(state)
+  }
+
+  sortByFavorited() {
+    let favorited = [];
+    this.props.businesses.forEach(entry => {
+      if (favorites[business.id]){
+        favorited.push(entry)
+      }
+    })
+    console.log(favorited)
+  }
+
+  sortByOpen() {
+    let openEntries = this.props.businesses.data.filter(entry => entry.opening_hours.open_now);
+    this.state.entries = openEntries;
+    let state = this.state;
+    this.setState(state);
+  }
+
+  displayBusinessEntries(entries) {
+    const { favorites } = this.props;
+    return entries.map((business, index) => 
+      <Link key={business.id} to={`/business/${business.id}`} onClick={(e, i) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
+      {index}<BusinessEntry business={business}
+                     key={business.id}
+                     favorite={favorites[business.id] ? true : false} />
+      </Link> 
+    )
+    
   }
 
     render() {
@@ -48,17 +72,21 @@ class BusinessList extends React.Component {
       <div>
       <div className="filterOptionsBar">
 
-        <button id="filterPrice" className="filterButton"> Price </button>
-        <button id="filterOpen" className="filterButton"> Is Open </button>
+        <button id="filterPrice" className="filterButton" onClick={ () => {
+          this.sortByPrice();
+        }}> Price </button>
+        <button id="filterOpen" className="filterButton" onClick={ () => {
+          this.sortByOpen();
+        }}> Is Open </button>
+        <button id="filterRating" className="filterButton" onClick={ () =>{
+          this.sortByRating();
+        }}> Rating </button>
         <button id="filterNearby" className="filterButton"> Nearby </button>
         <button id="filterFavorited" className="filterButton" onClick={ () => {
-          this.state.filters.favorited = !this.state.filters.favorited
-          var state = this.state;
-          this.setState(state)
-        }
-        }> Favorited </button>
+           this.sortByFavorited();
+         }}> Favorited </button>
       </div>
-        {this.getBusinessEntries()}
+        {this.displayBusinessEntries(this.props.businesses.data)}
       </div>
     )
   }
