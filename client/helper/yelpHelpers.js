@@ -15,7 +15,9 @@ const searchBusinesses = (query, userID, cb) => {
     if(err){
       throw err
     } else {
-      location = `location=${results[0].location}`
+      if(results[0].location){
+        location = `location=${results[0].location}`
+      }
       console.log(location)
       axios.get(`${googleAPI}textsearch/json?query=${query}&${location}&key=${GOOGLE_API_KEY}`)
         .then(response => cb(response))
