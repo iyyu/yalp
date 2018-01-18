@@ -7,11 +7,7 @@ class BusinessList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: this.props.businesses.data,
-      filters: {
-        open: false,
-        favorited: false
-      }
+      entries: this.props.businesses.data
     }
   }
   componentWillMount() {
@@ -24,18 +20,14 @@ class BusinessList extends React.Component {
     let pricedEntries = this.props.businesses.data.sort(function(a, b) {
         return b.price_level - a.price_level
     })
-    this.state.entries = pricedEntries;
-    let state = this.state;
-    this.setState(state);
+    this.setState({entries: pricedEntries});
   }
 
   sortByRating() {
     let ratedEntries = this.props.businesses.data.sort(function(a, b) {
       return b.rating - a.rating 
     })
-    this.state.entries = ratedEntries;
-    let state = this.state;
-    this.setState(state)
+    this.setState({entries: ratedEntries})
   }
 
   sortByFavorited() {
@@ -50,14 +42,15 @@ class BusinessList extends React.Component {
 
   sortByOpen() {
     let openEntries = this.props.businesses.data.filter(entry => entry.opening_hours.open_now);
-    this.state.entries = openEntries;
-    let state = this.state;
-    this.setState(state);
+    console.log(openEntries)
+    
+    this.setState({entries: openEntries});
+
   }
 
-  displayBusinessEntries(entries) {
+  displayBusinessEntries() {
     const { favorites } = this.props;
-    return entries.map((business, index) => 
+    return this.state.entries.map((business, index) => 
       <Link key={business.id} to={`/business/${business.id}`} onClick={(e, i) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
       {index}<BusinessEntry business={business}
                      key={business.id}
@@ -86,7 +79,7 @@ class BusinessList extends React.Component {
            this.sortByFavorited();
          }}> Favorited </button>
       </div>
-        {this.displayBusinessEntries(this.props.businesses.data)}
+        {this.displayBusinessEntries()}
       </div>
     )
   }
