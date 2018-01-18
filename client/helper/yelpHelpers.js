@@ -1,6 +1,6 @@
 const axios = require('axios');
 const googleAPI = `https://maps.googleapis.com/maps/api/place/`;
-const GOOGLE_API_KEY = 'AIzaSyAyGUK-2jzstlnMvbJPWWElabgp3wGUPXM';
+const GOOGLE_API_KEY = '';
 const db = require('../../database/index.js')
 let location = `location=37.7749,-122.4194`;
 
