@@ -50,9 +50,9 @@ class BusinessList extends React.Component {
 
   displayBusinessEntries() {
     const { favorites } = this.props;
-    return this.state.entries.map((business, index) => 
-      <Link key={business.id} to={`/business/${business.id}`} onClick={(e, i) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
-      {index}<BusinessEntry business={business}
+    return this.state.entries.map((business) => 
+      <Link key={business.id} to={`/business/${business.id}`} onClick={(e) => this.props.updateBusiness(e, business)} style={{ textDecoration: 'none' }}>    
+      <BusinessEntry business={business}
                      key={business.id}
                      favorite={favorites[business.id] ? true : false} />
       </Link> 
