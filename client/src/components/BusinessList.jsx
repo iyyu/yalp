@@ -7,7 +7,14 @@ class BusinessList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      entries: this.props.businesses.data
+      entries: this.props.businesses.data,
+      activeFilters: {
+        price: false,
+        rating: false,
+        is_open: false,
+        nearby: false,
+        favorited: false
+      }
     }
   }
   componentWillMount() {
@@ -21,14 +28,14 @@ class BusinessList extends React.Component {
     let sortedPricedEntries = pricedEntries.sort((a, b) => {
       return b.price_level - a.price_level
     })
-    this.setState({entries: sortedPricedEntries});
+    this.updateState(sortedPricedEntries);
   }
 
   sortByRating() {
     let ratedEntries = this.props.businesses.data.sort((a, b) => {
       return b.rating - a.rating 
     })
-    this.setState({entries: ratedEntries})
+    this.updateState(ratedEntries);
   }
 
     sortByFavorited() {
@@ -38,15 +45,21 @@ class BusinessList extends React.Component {
        return entry
       }
     })
-    this.setState({entries: favoritedEntries})
+    this.updateState(favoritedEntries);
   }
 
   sortByOpen() {
-    let openEntries = this.props.businesses.data.filter(entry => entry.opening_hours.open_now);
-    console.log(openEntries)
-    
-    this.setState({entries: openEntries});
+    let openEntries = this.props.businesses.data.filter(entry => {
+      if (entry.hasOwnProperty('opening_hours') && entry.opening_hours.open_now){
+        return entry
+      }
+    });
+    this.updateState(openEntries);
 
+  }
+
+  updateState(filteredEntries) {
+    this.setState({entries: filteredEntries});
   }
 
   displayBusinessEntries() {
