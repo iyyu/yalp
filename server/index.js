@@ -2,13 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 const db = require('../database/index.js');
-<<<<<<< HEAD
-const api = require('../client/helper/yelpHelpers.js')
-const v2functions = require('./v2-index.js');
-=======
 const api = require('../client/helper/yelpHelpers.js');
 const v2Index = require('./v2-index.js');
->>>>>>> Implement Express routing for v2-index, add basic modal on BusinessInfo component
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
