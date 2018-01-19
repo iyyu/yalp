@@ -2,8 +2,8 @@
 const connection = require('./index.js');
 
 const addDeals = (lat, lng, cb) => {
-  
-  const sql = `SELECT * FROM listings WHERE id=${id}`;
+  // TODO for Iris
+  const sql = ``;
   return new Promise((resolve, reject) => {
     connection.query(sql, (err, result, fields) => err ? reject(err) : resolve(result));
   });
