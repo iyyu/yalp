@@ -14,4 +14,11 @@ router.get('*/server/deal', (req, res) => {
   })
 })
 
+router.get('/suggestions/:id', (req, res) => {
+	v2Helpers.startSuggestions(req.params.id, (err, results) => {
+		var parsedResults = JSON.parse(results.body).businesses
+		res.send(parsedResults)
+	})
+})
+
 module.exports = router;
