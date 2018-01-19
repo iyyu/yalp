@@ -200,7 +200,6 @@ class App extends React.Component {
     return (
       <div>
         <div id="topnav">
-          {this.state.loggedIn ?
             <div onClick={e => {
               document.body.style.background = "url('beer.jpg')";
               document.body.style.backgroundSize = "100%";
@@ -215,14 +214,7 @@ class App extends React.Component {
               <Link to="/profile" className="profile">
                 <div onClick={this.logoutUser.bind(this)}>Profile</div>
               </Link>
-            </div> :
-            <div>
-            <Link to="/search" className="logoLink">
-              <img className="logo" src="https://image.ibb.co/cRbaE6/imageedit_16_4158574454.png"/>
-              YALP!
-              </Link>
-            </div>
-          }
+            </div> 
         </div>
         <Switch>
           <Route exact path="/" render={ () => <div id="form-background"><div id="form"><Home /></div></div> }/>
