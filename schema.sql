@@ -154,6 +154,12 @@ INSERT INTO friends (user_id1, user_id2) VALUES (3, 6);
 INSERT INTO friends (user_id1, user_id2) VALUES (4, 6);
 INSERT INTO friends (user_id1, user_id2) VALUES (5, 6);
 
+
+
+
+
+
+
 DROP TABLE IF EXISTS `deals`;
 		
 CREATE TABLE `deals` (
