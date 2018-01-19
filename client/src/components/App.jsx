@@ -33,7 +33,7 @@ class App extends React.Component {
       axios.post(`/userLocation/${NextState.userID}`, {location: NextState.location})
         .then(() => console.log('saved'))
         .catch(() => console.log('error'))
-      axios.get(`/suggestions/${this.state.userID}`)
+      axios.get(`/suggestions/${NextState.userID}`)
       .then((err, results) => {
         console.log(err)
         console.log(results, 'client request')

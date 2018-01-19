@@ -22,21 +22,19 @@ const startSuggestions = (userID, cb) => {
     if(err){
       throw err
     } else {
-      console.log(results)
       location = `${results[0].location}`
-      console.log(location)
       var yelpSearch = {
         categories: 'food',
         latitude: Number(location.split(',')[0]),
         longitude: Number(location.split(',')[1]),
         limit: 40
       }
-      fusionClient.search(yelpSearch)
-        .then(response => {
-          cb(null, response)
-          console.log(response, 'HELPER')
-        })
-        .catch(error => console.log('error:', error))
+      // fusionClient.search(yelpSearch)
+      //   .then(response => {
+      //     cb(null, response)
+      //     console.log(response, 'HELPER')
+      //   })
+      //   .catch(error => console.log('error:', error))
     }
   })
 }
