@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import {Link} from 'react-router-dom';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -67,7 +68,7 @@ class Profile extends React.Component {
   
   fetchFavorites() {
     const { profileId } = this.props;
-    axios.get(`/user/favorites/${profileId}`) // the way we store this data needs to be adjusted if we want it to work with results from GAPI.
+    axios.get(`/user/favorites/${profileId}`)
       .then(resp => {
         this.setState({ favorites: resp.data });
       })
@@ -105,8 +106,10 @@ class Profile extends React.Component {
       return checkins.map(checkin => {
         return (
           <div key={checkin.id}>
-            <div>{checkin.name}</div>
-            <div>{this.createDate(checkin.createdAt)}</div>
+          <ul>
+           <li> <div>{checkin.business_name}</div>
+            <div>{this.createDate(checkin.createdAt)}</div></li>
+          </ul>
           </div>
         );
       });
@@ -133,10 +136,10 @@ class Profile extends React.Component {
   renderFavorites() {
     const { favorites } = this.state;
     if (favorites.length) {
-      return favorites.map(favorite => {
+      return favorites.map((favorite, index) => {
         return (
           <ul>
-            <li><div key={favorite.id}>{favorite.name}</div></li>   
+            <li><div key={favorite.id}>{favorites[index].business_name}</div></li>   
           </ul>
         );
       });

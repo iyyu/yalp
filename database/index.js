@@ -5,12 +5,7 @@ const v2functions = require('./v2-index.js');
 let connection;
 
 if (process.env.JAWSDB_URL) {
-  connection = mysql.createConnection({
-    host: 'lg7j30weuqckmw07.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-    user: 'ybr7ph732nxw8g1g',
-    password: 'cmk1cc2z3q81thtz',
-    database: 'e36d84um3m6uotkz'
-  })
+  connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
   connection = mysql.createConnection({
     host: 'localhost',
@@ -19,6 +14,14 @@ if (process.env.JAWSDB_URL) {
     database: 'yalp'
   })
 }
+
+connection.connect(function(err) {
+  if (err) {
+    console.log('Error connecting to database', err);
+  } else {
+    console.log('Database connected!');
+  }
+});
 
 const getUser = function (user, cb) {
   //user obj contain username & pw for authentication
@@ -166,14 +169,14 @@ const checkFavorite = function (userId, businessId, cb) {
   })
 }
 
-const addFavorite = function (userId, businessId, cb) {
+const addFavorite = function (userId, businessId, businessName, cb) {
   checkFavorite(userId, businessId, (err, bool) => {
     if (bool) {
       cb(null, false)
     } else {
-      let query = `INSERT INTO favorites (user_id, business_id) VALUES (?, ?);`
+      let query = `INSERT INTO favorites (user_id, business_id, business_name) VALUES (?, ?, ?);`
 
-      connection.query(query, [userId, businessId], (err, results) => {
+      connection.query(query, [userId, businessId, businessName], (err, results) => {
         if (err) {
           cb(err, false)
         } else {
@@ -209,6 +212,7 @@ const getFriendsCheckins1 = function(userId, businessId, cb) {
   let query = `SELECT checkins.user_id, checkins.createdAt FROM checkins INNER JOIN friends ON friends.user_id1 = ${userId} AND checkins.business_id = ${businessId} AND friends.user_id2 = checkins.user_id;`;
 
   connection.query(query, (err, results) => {
+    console.log(results)
     if (err) {
       cb(err)
     } else {
@@ -256,12 +260,12 @@ const getFriendsFavorites2 = function(userId, businessId, cb) {
   })
 }
 
-const addCheckIn = function (userId, businessId, cb) {
+const addCheckIn = function (userId, businessId, businessName, cb) {
   checkCheckIn(userId, businessId, (err, bool) => {
     if (bool) {
       cb(false)
     } else {
-      let query = `INSERT INTO checkins (user_id, business_id) VALUES (${userId}, "${businessId}");`
+      let query = `INSERT INTO checkins (user_id, business_id, business_name) VALUES (${userId}, "${businessId}", "${businessName}");`
 
       connection.query(query, (err, results) => {
         if (err) {
@@ -341,8 +345,8 @@ const getFriends = function(userId, cb) {
 };
 
 const getCheckins = function(userId, cb) {
-    let query = 'select a.id, businesses.name, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on businesses.id = a.business_id;';
-
+   // let query = 'select a.id, businesses.name, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on businesses.id = a.business_id;';
+    let query = 'select * from checkins where user_id = ?;'
     connection.query(query, [userId], (err, results) => {
         if (err) {
             cb(err, null);
@@ -366,12 +370,13 @@ const getReviews = function(userId, cb) {
 };
 
 const getFavorites = function(userId, cb) {
-    let query = 'select a.id, businesses.name from (select * from favorites where favorites.user_id = ?) a left join businesses on businesses.id = a.business_id;';
-
+    // let query = 'select a.id, businesses.name from (select * from favorites where favorites.user_id = ?) a left join businesses on businesses.id = a.business_id;';
+    let query = 'select * from favorites where user_id = ?;';
     connection.query(query, [userId], (err, results) => {
         if (err) {
             cb(err, null);
         } else {
+          console.log(results)
             cb(null, results);
         }
     });
