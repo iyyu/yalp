@@ -109,8 +109,8 @@ class BusinessList extends React.Component {
     let entries = this.props.businesses.data;
     let filters = {
       is_open: this.sortByOpen,
-      price: this.sortPrioritizePrice,
-      rating: this.sortPrioritizeRating,
+      price: this.sortByPrice,
+      rating: this.sortByRating,
       favorited: this.sortByFavorited
     }
 
