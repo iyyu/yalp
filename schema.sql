@@ -36,6 +36,7 @@ CREATE TABLE `checkins` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `user_id` INTEGER NOT NULL,
   `business_id` VARCHAR(255) NOT NULL,
+  `business_name` VARCHAR(255) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 );
@@ -111,24 +112,26 @@ INSERT INTO reviews (user_id, business_id, text, rating) VALUES (5, '1e', "this 
 INSERT INTO reviews (user_id, business_id, text, rating) VALUES (6, '1f', "this place is utter trash", 2);
 
 
-INSERT INTO checkins (user_id, business_id) VALUES (1, '1a');
-INSERT INTO checkins (user_id, business_id) VALUES (1, '1b');
-INSERT INTO checkins (user_id, business_id) VALUES (1, '1c');
-INSERT INTO checkins (user_id, business_id) VALUES (2, '1d');
-INSERT INTO checkins (user_id, business_id) VALUES (1, '1e');
-INSERT INTO checkins (user_id, business_id) VALUES (1, '1f');
-INSERT INTO checkins (user_id, business_id) VALUES (3, '1a');
-INSERT INTO checkins (user_id, business_id) VALUES (3, '1b');
-INSERT INTO checkins (user_id, business_id) VALUES (3, '1c');
-INSERT INTO checkins (user_id, business_id) VALUES (4, '1d');
-INSERT INTO checkins (user_id, business_id) VALUES (4, '1e');
-INSERT INTO checkins (user_id, business_id) VALUES (4, '1f');
-INSERT INTO checkins (user_id, business_id) VALUES (5, '1a');
-INSERT INTO checkins (user_id, business_id) VALUES (5, '1b');
-INSERT INTO checkins (user_id, business_id) VALUES (5, '1c');
-INSERT INTO checkins (user_id, business_id) VALUES (6, '1d');
-INSERT INTO checkins (user_id, business_id) VALUES (6, '1e');
-INSERT INTO checkins (user_id, business_id) VALUES (6, '1f');
+INSERT INTO checkins (user_id, business_id, business_name) VALUES (1, '1a', 'Tu Lan');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (1, '1b', 'Chipotle');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (1, '1c', 'McDonalds');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (1, '1d', 'Fancy Steak House');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (1, '1e', 'Tempest');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (1, '1f', 'Some Expensive Place');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1a', 'Tu Lan');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1b', 'Chipotle');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1c', 'McDonalds');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1d', 'Fancy Steak House');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1e', 'Tempest');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (2, '1f', 'Some Expensive Place');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1a', 'To Lan');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1b', 'Chipotle');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1c', 'McDonalds');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1d', 'Fancy Steak House');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1e', 'Tempest');
+INSERT INTO checkins (user_id, business_id, business_name)  VALUES (3, '1f', 'Some Expensive Place');
+
+
 
 
 INSERT INTO favorites (user_id, business_id, business_name) VALUES (1, '1a', 'Tu Lan');

@@ -209,6 +209,7 @@ const getFriendsCheckins1 = function(userId, businessId, cb) {
   let query = `SELECT checkins.user_id, checkins.createdAt FROM checkins INNER JOIN friends ON friends.user_id1 = ${userId} AND checkins.business_id = ${businessId} AND friends.user_id2 = checkins.user_id;`;
 
   connection.query(query, (err, results) => {
+    console.log(results)
     if (err) {
       cb(err)
     } else {
@@ -256,12 +257,12 @@ const getFriendsFavorites2 = function(userId, businessId, cb) {
   })
 }
 
-const addCheckIn = function (userId, businessId, cb) {
+const addCheckIn = function (userId, businessId, businessName, cb) {
   checkCheckIn(userId, businessId, (err, bool) => {
     if (bool) {
       cb(false)
     } else {
-      let query = `INSERT INTO checkins (user_id, business_id) VALUES (${userId}, "${businessId}");`
+      let query = `INSERT INTO checkins (user_id, business_id, business_name) VALUES (${userId}, "${businessId}", "${businessName}");`
 
       connection.query(query, (err, results) => {
         if (err) {
@@ -341,8 +342,8 @@ const getFriends = function(userId, cb) {
 };
 
 const getCheckins = function(userId, cb) {
-    let query = 'select a.id, businesses.name, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on businesses.id = a.business_id;';
-
+   // let query = 'select a.id, businesses.name, a.createdAt from (select * from checkins where checkins.user_id = ?) a left join businesses on businesses.id = a.business_id;';
+    let query = 'select * from checkins where user_id = ?;'
     connection.query(query, [userId], (err, results) => {
         if (err) {
             cb(err, null);
