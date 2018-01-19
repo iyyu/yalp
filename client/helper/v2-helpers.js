@@ -2,7 +2,7 @@
 
 const axios = require('axios');
 const GROUPON_API_KEY = 'US_AFF_0_201236_212556_0';
-const yelpAPI = 'OmjPw3_urhskn_SitpzLtLBfYJLxKgJCJuiExSSwH8EEroTgHXUF6TvXA2FduhFOAyV1xACFvKynXDS0tiV5qsI6bD0UUA1JKlHJRb4JmpU8xGWNkQ2wPbX2g-1gWnYx'
+const yelpAPI = ''
 const yelp = require('yelp-fusion');
 const db = require('../../database/index.js')
 let location = `30.7749,-122.4194`;
