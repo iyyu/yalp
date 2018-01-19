@@ -32,6 +32,12 @@ class App extends React.Component {
       this.count++
       axios.post(`/userLocation/${NextState.userID}`, {location: NextState.location})
         .then(() => console.log('saved'))
+        .catch(() => console.log('error'))
+      axios.get(`/suggestions/${NextState.userID}`)
+      .then((err, results) => {
+        console.log(err)
+        console.log(results, 'client request')
+      })
     }
   }
 
@@ -49,6 +55,7 @@ class App extends React.Component {
         })
       }
     })
+
   }
 
   createUser(userData) {

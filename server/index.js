@@ -261,8 +261,6 @@ app.get('/user/favorites/:id', (req, res) => {
 
 //Saves users most recent location for suggestion purposes
 app.post('/userLocation/:id', (req, res) => {
-  console.log(req.params, '!!!')
-  console.log(req.body, '!!!')
   db.saveLocation(req.params.id, req.body.location, (err, results) => {
     if(err){
       throw err
