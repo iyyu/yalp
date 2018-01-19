@@ -92,7 +92,8 @@ app.get('/server/business/checkins', (req, res) => {
 app.post('/server/profile/checkins', (req, res) => {
   let userId = req.body.userId;
   let businessId = req.body.business.id;
-  db.addCheckIn(userId, businessId, resp => {
+  let businessName = req.body.business.name;
+  db.addCheckIn(userId, businessId, businessName, resp => {
     res.status(201).json(resp);
   })
 })

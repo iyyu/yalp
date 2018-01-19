@@ -217,8 +217,10 @@ class App extends React.Component {
               </Link>
             </div> :
             <div>
+            <Link to="/search" className="logoLink">
               <img className="logo" src="https://image.ibb.co/cRbaE6/imageedit_16_4158574454.png"/>
               YALP!
+              </Link>
             </div>
           }
         </div>

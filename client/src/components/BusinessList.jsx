@@ -123,10 +123,12 @@ class BusinessList extends React.Component {
             operation = this.sortPrioritizePrice;
           }
         } else if (filter === 'rating') {
-          if (this.state.activeFilters.price){
-            this.state.sortTypeToIgnore = 'price';
-            console.log('prioritizing rating ')
-            operation = this.sortPrioritizeRating;
+          if (this.state.activeFilters[filter] && filter != this.state.sortTypeToIgnore){
+            if (this.state.activeFilters.price){
+              this.state.sortTypeToIgnore = 'price';
+              console.log('prioritizing rating ')
+              operation = this.sortPrioritizeRating;
+            }
           }
         }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import TimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locale/en';
+import {Link} from 'react-router-dom';
 
 class Profile extends React.Component {
   constructor(props) {
@@ -105,8 +106,10 @@ class Profile extends React.Component {
       return checkins.map(checkin => {
         return (
           <div key={checkin.id}>
-            <div>{checkin.name}</div>
-            <div>{this.createDate(checkin.createdAt)}</div>
+          <ul>
+           <li> <div>{checkin.business_name}</div>
+            <div>{this.createDate(checkin.createdAt)}</div></li>
+          </ul>
           </div>
         );
       });
