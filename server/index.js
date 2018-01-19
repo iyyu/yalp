@@ -23,7 +23,7 @@ app.use(passport.session()); //for persistent login sessions
 
 // serve static asset...
 app.use(express.static(__dirname + '/../client/dist'));
-app.use('/', v2index);
+app.use('/', v2Index);
 
 app.post('/server/login', passport.authenticate('local-login'), function (req, res){
   console.log('Hello');
@@ -39,6 +39,7 @@ app.post('/server/login', passport.authenticate('local-login'), function (req, r
     } else {
       req.session.cookie.expires = false;
     }
+    console.log('REACHING THIS BLOCK', req.user);
     res.status(201).json(req.user);
   }
 }

@@ -1,8 +1,8 @@
--- DROP DATABASE IF EXISTS yalp;
---
--- CREATE DATABASE yalp;
---
--- USE yalp;
+DROP DATABASE IF EXISTS yalp;
+
+CREATE DATABASE yalp;
+
+USE yalp;
 
 
 CREATE TABLE `users` (
@@ -10,7 +10,7 @@ CREATE TABLE `users` (
   `name` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `password` CHAR(60) NOT NULL,
-  `username` VARCHAR(20) NOT NULL,
+  `username` VARCHAR(255) NOT NULL,
   UNIQUE INDEX `id_UNIQUE` (`id` ASC),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   `createdAt` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
