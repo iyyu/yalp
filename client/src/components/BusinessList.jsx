@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import BusinessEntry from './BusinessEntry.jsx';
 import { Link } from 'react-router-dom';
+import Sortable from './FilterOptionsContainer.jsx';
 
 class BusinessList extends React.Component {
   constructor(props) {
@@ -114,7 +115,7 @@ class BusinessList extends React.Component {
       favorited: this.sortByFavorited
     }
 
-    for (let filter in filters) {
+    for (let filter in filters) { // handle multiple active filters better
       if (this.state.activeFilters[filter] && filter != this.state.sortTypeToIgnore){
         if (filter === 'price') {
           if (this.state.activeFilters.rating) {
@@ -180,6 +181,7 @@ class BusinessList extends React.Component {
          }}> Favorited </button>
       </div>
         {this.displayBusinessEntries()}
+        <Sortable />
       </div>
     )
   }
