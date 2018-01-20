@@ -46,11 +46,11 @@ const saveUserSearches = (userID, searchText, callback) => {
     longitude: location.split(',')[1],
     limit: 1
   }
-  fusionClient.search(yelpSearch)
-    .then(response => {
-      callback(null, response)
-    })
-    .catch(error => console.log(error))
+//   fusionClient.search(yelpSearch)
+//     .then(response => {
+//       callback(null, response)
+//     })
+//     .catch(error => console.log(error))
 }
 
 module.exports = {
