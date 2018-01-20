@@ -71,6 +71,7 @@ DROP TABLE IF EXISTS `searches`;
 
 CREATE TABLE `searches` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER NOT NULL,
   `name` MEDIUMTEXT NOT NULL,
   PRIMARY KEY (`id`)
 );
