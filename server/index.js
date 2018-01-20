@@ -7,6 +7,8 @@ const app = express();
 const db = require('../database/index.js');
 const api = require('../client/helper/yelpHelpers.js');
 const v2Index = require('./v2-index.js');
+const v2Helpers = require('../client/helper/v2-helpers.js');
+const dbV2 = require('../database/v2-index.js'); 
 
 require('./passport.js')(passport);
 app.use(cookieParser());
@@ -69,7 +71,23 @@ function (req, res) {
 // when user search
 app.get('/server/search/:query', (req, res) => {
   api.searchBusinesses(req.params.query, req.url.split('=')[1], results => {
-    console.log(results)
+    if(results.data.results.length > 0) {
+      v2Helpers.saveUserSearches(req.url.split('=')[1], req.params.query, (error, results) => {
+        //Viktor callback to v2Helpers to start save process of users searched categories. 
+        let userCategory = []
+        JSON.parse(results.body).businesses[0].categories.forEach(function(each){
+          userCategory.push(each.alias)
+          //Viktor , take userCategory and add to user search database
+          db.saveUserSearches(req.url.split('=')[1], userCategory, (error, results) => {
+            if(error){
+              throw error;
+            } else {
+              console.log('user search successfully saved - index.js /server/search')
+            }
+          })
+        })
+      })
+    }
     res.status(201).json(results.data.results);
   })
   // use below for test
