@@ -405,6 +405,22 @@ const getLocation = (userID, cb) => {
   })
 }
 
+
+const saveUserSearches = (userID, searchText, callback) => {
+  searchText.forEach(function(each){
+    let queryStr = "INSERT INTO user_searches (user_id, searchString) VALUES (? , ?);"
+    let params = [userID, each]
+    connection.query(queryStr, params, (error, results) => {
+      if(error){
+        throw error
+      } else {
+        console.log('User Search Category Saved - v2-index')
+        callback(null, results)
+      }
+    })
+  })
+}
+
 //MYSQL QUERIES FOR:
 
 // Businesses
@@ -524,5 +540,6 @@ module.exports = {
   getReviews,
   getFavorites,
   saveLocation,
-  getLocation
+  getLocation,
+  saveUserSearches
 }

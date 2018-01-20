@@ -191,7 +191,7 @@ class App extends React.Component {
 
   favoriteIn(business) {
     let userBusinessObj = {
-      userId: this.state.userId,
+      userId: this.state.userID,
       businessId: business.id,
       businessName: business.name
     }
